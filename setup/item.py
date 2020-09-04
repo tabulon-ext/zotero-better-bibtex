@@ -44,6 +44,7 @@ class fetch(object):
       releases = urlopen("https://www.zotero.org/download/client/manifests/release/updates-linux-x86_64.json").read().decode("utf-8")
       releases = json.loads(releases)
       releases = [rel['version'] for rel in reversed(releases)]
+      releases = ['5.0.84']
       self.schema = self.update(
         client=client,
         releases=releases,
