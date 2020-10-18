@@ -73,7 +73,8 @@ export let Preferences = new class { // tslint:disable-line:variable-name
 
   public get(pref) {
     if (this.testing && !supported.includes(pref)) throw new Error(`Getting unsupported preference "${pref}"`)
-    return Zotero.Prefs.get(this.key(pref))
+    const v = Zotero.Prefs.get(this.key(pref))
+    return typeof(v) === 'undefined' ? defaults[pref] : v
   }
 
   public clear(pref) {
