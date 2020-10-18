@@ -596,6 +596,7 @@ export class Reference {
           default:
             throw new Error(`Unexpected field encoding: ${JSON.stringify(enc)}`)
         }
+        if (field.name === 'shorttitle') log.debug('#LaTeX:', { raw: this.item.raw, field, value })
 
         if (!value) return null
 
