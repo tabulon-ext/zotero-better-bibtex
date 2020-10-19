@@ -174,7 +174,7 @@ export let Translator = new class implements ITranslator { // tslint:disable-lin
 
       if (typeof value === 'undefined') value = Zotero.getHiddenPref(`better-bibtex.${pref}`)
 
-      this.preferences[pref] = value
+      if (typeof value !== 'undefined') this.preferences[pref] = value // #1647 -- if a pref is cleared, don't reset
     }
 
     // special handling

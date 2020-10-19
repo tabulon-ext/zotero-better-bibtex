@@ -229,7 +229,6 @@ class Preferences:
       json.dump(list(override.keys()), fo, indent=2)
 
     os.makedirs(os.path.join(root, 'gen/typings'), exist_ok=True)
-
     with open(os.path.join(root, 'gen', 'typings', 'preferences.d.ts'), 'w') as f:
       print('interface IPreferences {', file=f)
       for name, pref in preferences.items():
@@ -238,6 +237,12 @@ class Preferences:
 
     with open(os.path.join(root, 'gen', 'preferences.ts'), 'w') as f:
       print(template('preferences/preferences.ts.mako').render(preferences=preferences).strip(), file=f)
+
+    os.makedirs(os.path.join(root, 'build/defaults/preferences'), exist_ok=True)
+    with open(os.path.join(root, 'build/defaults/preferences/defaults.js'), 'w') as f:
+      prefix = 'extensions.zotero.translators.better-bibtex.'
+      for name, pref in preferences.items():
+        print(f'pref({json.dumps(prefix + name)}, {json.dumps(pref.default)});', file=f)
 
 content = os.path.join(root, 'content')
 for xul in os.listdir(content):
